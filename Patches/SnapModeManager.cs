@@ -81,7 +81,7 @@ internal class SnapModeManager
         if (CurrentSnapMode != prevSnapMode)
         {
             InvokeOnSnapModeChanged();
-            __instance.Message(ExtraSnapsPlugin.Instance.NotificationType.Value, $"Snap Mode: {CurrentSnapModeName}");
+            ShowNotification(__instance, $"Snap Mode: {CurrentSnapModeName}");
         }
 
         if (!__instance.m_placementGhost || CurrentSnapMode == SnapMode.Auto)
@@ -112,7 +112,7 @@ internal class SnapModeManager
             if (CurrentGridPrecision == GridPrecision.Low) { CurrentGridPrecision = GridPrecision.High; }
             else { CurrentGridPrecision = GridPrecision.Low; }
             CurrentGridPrecisionValue = GridPrecisionMap[CurrentGridPrecision];
-            player.Message(ExtraSnapsPlugin.Instance.NotificationType.Value, $"Grid Precision: {CurrentGridPrecisionValue}");
+            ShowNotification(player, $"Grid Precision: {CurrentGridPrecisionValue}");
         }
 
         Vector3 position = player.m_placementGhost.transform.position;
@@ -123,8 +123,7 @@ internal class SnapModeManager
 
     private static void SnapManually(ref Player player)
     {
-        
-        if (!player || !player.m_placementGhost || !player.m_placementGhost.TryGetComponent(out Piece sourcePiece) && sourcePiece) 
+        if (!player || !player.m_placementGhost || !player.m_placementGhost.TryGetComponent(out Piece sourcePiece))
         {
             return;
         }
@@ -199,17 +198,22 @@ internal class SnapModeManager
         if (prevSourceSnap != CurrentSourceSnap)
         {
             string name = HasFriendlySnapName(sourceSnap) ? sourceSnap.name : $"Point {CurrentSourceSnap + 1}";
-            player.Message(ExtraSnapsPlugin.Instance.NotificationType.Value, $"Placing Snap Point: {name}");
+            ShowNotification(player, $"Placing Snap Point: {name}");
         }
 
         if (IsManualPlusSnapMode && prevTargetSnap != CurrentTargetSnap)
         {
             string name = HasFriendlySnapName(targetSnap) ? targetSnap.name : $"Point {CurrentTargetSnap + 1}";
-            player.Message(ExtraSnapsPlugin.Instance.NotificationType.Value, $"Target Snap Point: {name}");
+            ShowNotification(player, $"Target Snap Point: {name}");
         }
 
         // adjust placement ghost position based on the difference between sourceSnap and targetSnap
         player.m_placementGhost.transform.position += targetSnap.position - sourceSnap.position;
+    }
+
+    private static void ShowNotification(Player player, string message)
+    {
+        player.Message(ExtraSnapsPlugin.Instance.NotificationType.Value, message, 0, null, false);
     }
 
     private static bool TryGetTargetPiece(Player player, Piece placementGhostPiece, out Piece targetPiece)
