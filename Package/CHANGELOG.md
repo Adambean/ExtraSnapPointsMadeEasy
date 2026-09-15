@@ -5,6 +5,17 @@
 			<th align="center">Notes</th>
 		</tr>
 		<tr>
+			<td align="center">2.1.0</td>
+			<td align="left">
+				<ul>
+					<li>Updated for Deep North Update!</li>
+					<li>I have only done prelimary testing and updated the mod to function with Valherim 1.0.12.</li>
+					<li>I have not added custom snap points to any of the new pieces, but the automated snap point calculation should hopefully handle most new pieces in a reasonably intuitive way.</li>
+					<li>No custom snap points will be added to new pieces until after I get to play through the new update and see the new pieces.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<td align="center">2.0.5</td>
 			<td align="left">
 				<ul>
