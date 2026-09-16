@@ -9,7 +9,7 @@
 	<Import Project="ModPackageTool.targets" Condition="Exists('ModPackageTool.targets')" />
 
 	<PropertyGroup>
-		<TargetFramework>net48</TargetFramework>
+		<TargetFramework>net481</TargetFramework>
 		<OutputType>Library</OutputType>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<!--<LangVersion>latest</LangVersion>-->
